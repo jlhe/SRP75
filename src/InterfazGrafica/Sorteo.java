@@ -9,14 +9,22 @@ package InterfazGrafica;
  *
  * @author alumno
  */
-public class Sorteo extends javax.swing.JFrame {
+public class Sorteo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Sorteo
      */
     public Sorteo() {
+        super("sorteo", false, true);
+        setSize(1000, 700);
         initComponents();
+        ConexionSQL SQL = new ConexionSQL();
+        SQL.ConexionBase("root", "admin", "db");
+        int maximo = SQL.Maximo();
+        
+        SQL.CierreConexion();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,7 +128,7 @@ public class Sorteo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -146,6 +154,7 @@ public class Sorteo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Sorteo().setVisible(true);

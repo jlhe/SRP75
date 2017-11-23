@@ -93,15 +93,14 @@ public   void EliminarRegistros (String registro){
     }
 }
 
-public  int Maximo (String registro){
+public int Maximo (){
     int max = 0;
     try {
-        Statement miconexion = conexion.createStatement();
-//       miconexion.executeUpdate("SELECT MAX(ID) FROM" + registro);
-        
-        ResultSet rs = miconexion.executeQuery("SELECT MAX(ID) FROM" + registro);
+        Statement miConexion = conexion.createStatement();
+        //miConexion.executeUpdate("SELECT MAX(ID) FROM" + registro);
+        ResultSet rs = miConexion.executeQuery("SELECT MAX(ID) FROM mregistro");
         while (rs.next()) {
-               max= rs.getInt(9);
+               max= rs.getInt(1);
                System.out.println(rs.getInt(1));
         }
     }catch (SQLException e){

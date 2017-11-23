@@ -229,7 +229,7 @@ public class NuevoRegistro extends javax.swing.JInternalFrame {
         p.setMail(txtMail.getText());
         p.setJava(String.valueOf(buttonGroup1.getSelection()));
         
-        SQL.ConexionBase("root", "admin", "basedb");
+        SQL.ConexionBase("root", "admin", "db");
 //        SQL.CrearBase("basedb");
 //        SQL.CrearTabla("registros");
         SQL.IngresarDatosTabla("registro", p.getNombre(), p.getApellido(), p.getLocalidad(),
@@ -237,7 +237,7 @@ public class NuevoRegistro extends javax.swing.JInternalFrame {
                         p.getJava(),p.getDni());
         
         SQL.CierreConexion();
-        SQL.Maximo("registro");
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBorrarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarFormActionPerformed

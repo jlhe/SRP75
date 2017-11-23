@@ -129,15 +129,14 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerListaActionPerformed
 
     private void btnSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSorteoActionPerformed
-        SQL.Maximo("registro");
-        int max = Maximo("registro");
-       
+//        int max = SQL.Maximo();
+//        System.out.println(max);
 //        int[] matriz_aleatorio = new int[1];
 //        for (int i = 0; i < max; i++) {
-//            
-//            
-//            
 //        }
+          Sorteo sorteo = new Sorteo();
+          jDesktopPane1.add(sorteo);
+          sorteo.setVisible(true);
     }//GEN-LAST:event_btnSorteoActionPerformed
 
     /**
