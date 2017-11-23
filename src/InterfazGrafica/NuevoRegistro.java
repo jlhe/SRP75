@@ -1,23 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package InterfazGrafica;
 
 /**
  *
- * @author Mi PC
+ * @author jose
  */
-public class NuevoRegistro extends javax.swing.JFrame {
+public class NuevoRegistro extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Registro
+     * Creates new form NuevoRegistro
      */
     public NuevoRegistro() {
+        super("lista", false, true);
         initComponents();
+        setSize(600, 700);
+        
+//        setBounds(10, 10, 700, 500);
     }
+    
 
+    ConexionSQL SQL = new ConexionSQL();
+    Clase_Persona p = new Clase_Persona();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,9 +31,10 @@ public class NuevoRegistro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        lblApellido = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
         lblDni = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
         lblEdad = new javax.swing.JLabel();
@@ -49,13 +54,13 @@ public class NuevoRegistro extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnBorrarForm = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtNombre = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(198, 241, 244));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nuevo Registro", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        lblNombre.setText("Nombre y Apellido:");
+        lblApellido.setText("Apellido");
 
         lblDni.setText("DNI: ");
 
@@ -82,10 +87,27 @@ public class NuevoRegistro extends javax.swing.JFrame {
         btnRegistrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(null);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver a la página de Inicio");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         btnBorrarForm.setText("Borrar formulario");
+        btnBorrarForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarFormActionPerformed(evt);
+            }
+        });
+
+        lblNombre.setText("Nombre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,7 +118,7 @@ public class NuevoRegistro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBorrarForm)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblNombre)
+                        .addComponent(lblApellido)
                         .addComponent(lblDni)
                         .addComponent(lblEdad)
                         .addComponent(lblLocalidad)
@@ -104,7 +126,8 @@ public class NuevoRegistro extends javax.swing.JFrame {
                         .addComponent(lblMail)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)
-                        .addComponent(lblFoto)))
+                        .addComponent(lblFoto)
+                        .addComponent(lblNombre)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -112,27 +135,31 @@ public class NuevoRegistro extends javax.swing.JFrame {
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnVolver))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                        .addComponent(txtDni)
-                        .addComponent(txtLocalidad)
-                        .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTelefono)
-                        .addComponent(txtMail))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(rbtnSi)
                         .addGap(31, 31, 31)
                         .addComponent(rbtnNo))
-                    .addComponent(btnSubirImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSubirImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                        .addComponent(txtDni, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtLocalidad, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtEdad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtMail, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombre))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblApellido)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDni)
@@ -168,7 +195,7 @@ public class NuevoRegistro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFoto)
                     .addComponent(btnSubirImagen))
-                .addGap(18, 41, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
                     .addComponent(btnBorrarForm)
@@ -190,50 +217,58 @@ public class NuevoRegistro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevoRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevoRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevoRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevoRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        p.setNombre(txtNombre.getText());
+        p.setApellido(txtApellido.getText());
+        p.setDni(Integer.parseInt(txtDni.getText()));
+        
+        p.setEdad(Integer.parseInt(txtEdad.getText()));
+        p.setLocalidad(txtLocalidad.getText());
+        p.setTelefono(Integer.parseInt(txtTelefono.getText()));
+        p.setMail(txtMail.getText());
+        p.setJava(String.valueOf(buttonGroup1.getSelection()));
+        
+        SQL.ConexionBase("root", "admin", "basedb");
+//        SQL.CrearBase("basedb");
+//        SQL.CrearTabla("registros");
+        SQL.IngresarDatosTabla("registro", p.getNombre(), p.getApellido(), p.getLocalidad(),
+                p.getMail(),p.getEdad(),p.getTelefono(),
+                        p.getJava(),p.getDni());
+        
+        SQL.CierreConexion();
+        SQL.Maximo("registro");
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NuevoRegistro().setVisible(true);
-            }
-        });
-    }
+    private void btnBorrarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarFormActionPerformed
+        // TODO add your handling code here:
+        txtNombre.setText(null);
+        txtApellido.setText(null);
+        txtDni.setText(null);
+        txtEdad.setText(null);
+        txtLocalidad.setText(null);
+        txtTelefono.setText(null);
+        txtMail.setText(null);
+
+        buttonGroup1.clearSelection();
+    }//GEN-LAST:event_btnBorrarFormActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarForm;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSubirImagen;
     private javax.swing.JButton btnVolver;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblDni;
     private javax.swing.JLabel lblEdad;
     private javax.swing.JLabel lblFoto;
@@ -243,6 +278,7 @@ public class NuevoRegistro extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JRadioButton rbtnNo;
     private javax.swing.JRadioButton rbtnSi;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtLocalidad;
